@@ -1,0 +1,179 @@
+----Backend----
+1)Established Project Structure: Organized the backend using a professional and scalable architecture, 
+                                 separating concerns into folders like models, schemas, api, and db.
+
+2)Configured Database Connection: Set up the SQLite database engine and session management in app/db/session.py
+                                  to handle data persistence.
+
+3)Defined SQLAlchemy Models: Created the database schema in app/models/product.py, 
+                             defining how the Product table should look (e.g., ID, Name, Price, Category, and Image).
+
+4)Implemented Pydantic Schemas: Developed data validation layers in app/schemas/product.py to 
+                                ensure consistent data formats for both API requests and responses.
+
+5)Created API Routes: Developed a functional GET endpoint in app/api/v1/products.py to 
+                      fetch and return the list of products from the database.
+
+6)Setup Main Entry Point: Integrated all modules (routes, database initialization, and middleware) 
+                          in app/main.py to serve as the application’s core launch point.
+
+----Frontend----
+
+1)Core Setup (The Engine)
+    src/app/store.js: This is the "Brain" of the app. It connects and manages all the different logic parts (Slices) like Products and Cart in one central place.
+
+    src/services/api.js: The "Bridge" to your backend. We set up axios here with your backend URL so we don’t have to type the full address in every file.
+
+2. Feature Logic (Business Logic)
+    src/features/products/productSlice.js: Manages the "State" of your products. It handles fetching data from the backend using AsyncThunk and tracks if the data is still loading or if there was an error.
+
+    src/features/products/ProductList.jsx: A UI component that talks to Redux, gets the list of products, and displays them as beautiful cards on the screen.
+
+3. User Actions (Shopping Cart)
+    src/features/cart/cartSlice.js: Handles the logic for the cart. When a user clicks "Add to Cart," this file manages adding the item, increasing the quantity, or removing it.
+
+    src/features/cart/Cart.jsx: The "Cart Page" design. It shows the user exactly what items they have picked to buy.
+
+4. Supporting Folders
+    src/components/common/: Stores small, reusable UI pieces like custom buttons, loading spinners, or alert boxes.
+
+    src/components/layout/: Holds the common parts of the website that stay the same on every page, like the Navbar and Footer.
+
+    src/theme/index.js: The place to customize ChakraUI colors, fonts, and global styles.
+
+    .env: A secret file to store your API URL so it's not hardcoded directly into your logic.
+
+
+*)API Bridge Setup: Created api.js to establish communication with the FastAPI backend.
+
+*)Async Logic Creation: Wrote the productSlice.js using createAsyncThunk to handle the process of fetching data.
+
+*)Store Registration: Added our product slice into store.js to make it available to the whole app.
+
+*)Global Connection: Configured main.jsx with the Redux Provider and ChakraProvider to wrap the entire application.
+
+*)UI Component: Developed ProductList.jsx to fetch and display the real data from your database as product cards.
+
+
+*)Created Cart Slice (cartSlice.js):
+
+    We set up a dedicated "Cart State" to manage shopping activities.
+
+    We wrote the addToCart logic, which intelligently checks if an item is already in the cart. 
+    If it exists, it only increases the Quantity; otherwise, it adds the item as a new entry. 
+    This keeps the cart organized and professional.
+
+*)Updated Global Store (store.js):
+
+    We registered the cartReducer in our central Store alongside the product reducer.
+
+    This allows the entire application to "know" exactly what is inside the user's cart at any time.
+
+*)Connected UI with Action (ProductList.jsx):
+
+    We added an "Add to Cart" button to every product card.
+
+    Using the useDispatch hook, we connected these buttons to our Redux action so that clicking them 
+    instantly sends the product data to the cart state.
+
+*)Implemented Dynamic Navbar (Navbar.jsx):
+
+    We created a navigation bar that stays at the top of the page.
+
+    We used the useSelector hook to pull the cart data into the Navbar, 
+    allowing us to display a live Cart Count (Badge) over the shopping icon.
+    Now, whenever you add an item, the counter updates automatically without refreshing the page.
+
+*)Created Cart Drawer UI (CartDrawer.jsx):
+
+    Integrated a professional slide-out panel using Chakra UI’s Drawer component.
+
+    This allows users to review their cart items instantly without leaving the main product page.
+
+*)Implemented Dynamic Calculations:
+
+    Added logic inside the Drawer to automatically calculate the Total Price by multiplying each item's 
+    price by its quantity.
+
+*)Added Decrease Quantity Logic (cartSlice.js):
+
+    Created a decreaseQuantity function in Redux with conditional logic.
+
+    Logic: If the quantity is greater than 1, it reduces the count by one. 
+    If the quantity is exactly 1 and the user clicks minus, it removes the item from the cart entirely using splice.
+
+*)Connected Drawer with Navbar:
+
+    Linked the shopping cart icon in the Navbar to the Drawer using the useDisclosure hook. 
+    Now, the Drawer opens seamlessly when the icon is clicked.
+
+*)Enhanced UI Interactivity:
+
+    Connected the "Plus", "Minus", and "Delete" buttons inside the Drawer to Redux actions. 
+    This provides a smooth, real-time experience for users to manage their orders.  
+
+-Checkout & Success Modal Implementation- 
+*)Component Modularization: 
+    We moved the checkout success message to a separate file (CheckoutModal.jsx) 
+    to keep the codebase clean and organized.
+
+*)Cart Reset Logic: 
+    We created a clearCart function in Redux to automatically remove 
+    all items from the cart once an order is placed.
+
+*)Multiple Pop-up Control: 
+    We learned how to manage two UI layers simultaneously—closing 
+    the Cart Drawer while opening the Success Modal.
+
+*)User Feedback: 
+    We added a professional "Thank You" message with a green success 
+    icon to give users clear confirmation of their purchase.  
+
+*)Created CustomButton.jsx:
+
+    Developed a reusable button that maintains a consistent style (Blue theme, rounded corners) 
+    throughout the entire app.
+
+    Added a built-in isLoading feature, so the button can show a loading state automatically when
+    clicked.
+
+*)Created LoadingSpinner.jsx:
+
+    Built a centered loading animation to show while the app is fetching data from the backend.
+
+    Added a customizable label (e.g., "Fetching Products...") to keep the user informed during 
+    wait times.
+
+*)Created ErrorMessage.jsx:
+
+    Designed a clean error alert component using Chakra UI’s Alert system.
+
+    This provides clear visual feedback to the user if an API call fails or if something goes wrong.
+
+*)Improved Code Reusability:
+
+    By placing these in the common/ folder, we can now use these exact same components anywhere 
+    in the project, ensuring a professional and uniform design. 
+
+-Category Filtering Implementation-
+*)Global State Update: 
+    We added a new state called selectedCategory in productSlice.js. 
+    This state tracks which category the user wants to view (e.g., 'All', 'Electronics', or 'Fashion').
+
+*)Filter Action: 
+    We created a setCategory action. Whenever a user clicks a category button, 
+    this action tells the Redux store to update the current selection.
+
+*)Reusable FilterBar: 
+    We built a new component called FilterBar.jsx to hold the category buttons. 
+    This was built using our previously created CustomButton for a consistent look.
+
+*)Dynamic UI Rendering: 
+    In ProductList.jsx, we implemented the filteredItems logic. 
+    This logic scans the main product list and extracts only the items that match 
+    the user's selected category.
+
+*)UI Optimization: 
+    We fixed the product card images using objectFit="contain". 
+    This ensures all images are displayed in the same size and ratio, 
+    making the grid look professional and symmetrical.           
