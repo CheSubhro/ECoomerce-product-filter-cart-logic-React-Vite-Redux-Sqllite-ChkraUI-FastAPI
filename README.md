@@ -1,4 +1,3 @@
-<img width="900" height="1895" alt="localhost_5173_ (16)" src="https://github.com/user-attachments/assets/64f0e8e6-e1cd-4c7d-893f-2afe78653192" /><img width="900" height="1895" alt="localhost_5173_ (17)" src="https://github.com/user-attachments/assets/11202820-b4ac-46c9-b3d9-f443d4adc9f2" /><img width="900" height="1996" alt="127 0 0 1_8000_docs (4)" src="https://github.com/user-attachments/assets/62e212bd-1d08-4fac-9e7b-e51605c31ef5" /><img width="900" height="1895" alt="localhost_5173_ (15)" src="https://github.com/user-attachments/assets/811cc8c6-0987-4fb3-8e23-1640fcc25a4f" /># 🛒 ProCart - Modern Full-Stack E-Commerce Solution
 
 ProCart is a production-grade e-commerce application built with a focus on high performance, clean architecture, and seamless user experience. It features a robust **FastAPI** backend and a dynamic **React** frontend with **Redux Toolkit** for sophisticated state management.
 
